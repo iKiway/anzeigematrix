@@ -192,7 +192,9 @@ class MatrixHelper:
         while True:
             try:
                 station = Station("Rommelshausen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
+                station = []
                 train_list = station.get_sorted_departure_list(num_hours=5)
+                
             except:
                 # print(f"Error fetching train data: {e}")
                 station = None
