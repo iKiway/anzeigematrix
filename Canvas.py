@@ -1,4 +1,6 @@
-from RGBMatrixEmulator import RGBMatrix, RGBMatrixOptions, graphics, Color
+# from RGBMatrixEmulator import RGBMatrix, RGBMatrixOptions, graphics, Color
+from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics, Color
+
 from PIL import Image, ImageDraw, ImageFont
 import time
 import datetime
@@ -239,6 +241,8 @@ if __name__ == "__main__":
     options.cols = 64
     options.chain_length = 1
     options.parallel = 1
+    options.gpio_slowdown = 4
+    
     options.hardware_mapping = 'adafruit-hat'  # Oder 'adafruit-hat-pwm'
 
     matrix = RGBMatrix(options=options)
