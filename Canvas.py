@@ -117,7 +117,7 @@ class MatrixHelper:
                 self.matrix.SwapOnVSync(self.canvas)
                 self.display_final_destination_new(destination_up, pos_up, graphics.Color(0,0,0), upper=True)
                 if len(train_list) > 1:
-                    self.display_final_destination_new(destination_down, pos_down, graphics.Color(0,0,0), upper=False)
+                    self.display_final_destination_new(destination_down, pos_up, graphics.Color(0,0,0), upper=False)
                 if text_width_up > 43:
                     pos_up -= 1
                 if text_width_down > 43:
