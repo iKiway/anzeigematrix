@@ -123,8 +123,8 @@ class MatrixHelper:
                     pos_up -= 1
                 if text_width_down > 43:
                     pos_down -= 1
-                if pos_up < -text_width_up + 20:
-                    pos_up = 64
+                if pos_up < -text_width_up + 24:
+                    pos_up = 59
                 if pos_down < -text_width_down + 20:
                     pos_down = 64
                 # print("lsdkjf")
