@@ -115,9 +115,10 @@ class MatrixHelper:
                 if len(train_list) > 1:
                     self.display_final_destination_new(destination_down, pos_down, self.color_font, upper=False)
                 self.matrix.SwapOnVSync(self.canvas)
+                time.sleep(0.05)
                 self.display_final_destination_new(destination_up, pos_up, graphics.Color(0,0,0), upper=True)
                 if len(train_list) > 1:
-                    self.display_final_destination_new(destination_down, pos_up, graphics.Color(0,0,0), upper=False)
+                    self.display_final_destination_new(destination_down, pos_down, graphics.Color(0,0,0), upper=False)
                 if text_width_up > 43:
                     pos_up -= 1
                 if text_width_down > 43:
@@ -126,7 +127,6 @@ class MatrixHelper:
                     pos_up = 64
                 if pos_down < -text_width_down + 20:
                     pos_down = 64
-                time.sleep(0.05)
                 print("lsdkjf")
             
     def display_final_destination(self, train:Train, pos, color, upper=True): #Funktion um den Endpunkt anzuzeigen
