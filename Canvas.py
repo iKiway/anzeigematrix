@@ -244,6 +244,8 @@ if __name__ == "__main__":
     options.gpio_slowdown = 4
     options.pwm_bits = 6
     options.brightness = 100
+    options.pwm_lsb_nanoseconds = 130
+    options.show_refresh_rate = 1
     
     # options.hardware_mapping = 'adafruit-hat'  # Oder 'adafruit-hat-pwm'
 
