@@ -243,7 +243,7 @@ if __name__ == "__main__":
     options.parallel = 1
     options.gpio_slowdown = 4
     
-    options.hardware_mapping = 'adafruit-hat'  # Oder 'adafruit-hat-pwm'
+    # options.hardware_mapping = 'adafruit-hat'  # Oder 'adafruit-hat-pwm'
 
     matrix = RGBMatrix(options=options)
     canvas = matrix.CreateFrameCanvas()
