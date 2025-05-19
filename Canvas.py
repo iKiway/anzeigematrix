@@ -1,5 +1,5 @@
 # from RGBMatrixEmulator import RGBMatrix, RGBMatrixOptions, graphics, Color
-from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics, Color
+from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 
 from PIL import Image, ImageDraw, ImageFont
 import time
