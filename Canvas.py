@@ -56,13 +56,14 @@ class MatrixHelper:
             text_width_down = 0
 
         while self.thread_run:  # Überprüfe den Anzeigemodus
+            
             train_list = self.train_list
             self.canvas.Clear()
-            self.display_final_destination(train_list[0], pos_up)
+            self.display_final_destination(train_list[0], pos_up, self.color_font, upper=True) #Zeige den Endbahnhof an
             self.display_departure(train_list[0], upper=True)
             self.display_icon(train_list[0], upper=True)
             if len(train_list) > 1:
-                self.display_final_destination(train_list[1], pos_down, upper=False) 
+                self.display_final_destination(train_list[1], pos_down, self.color_font, upper=False) 
                 self.display_departure(train_list[1], upper=False)
                 self.display_icon(train_list[1], upper=False)
             self.background()
@@ -82,9 +83,9 @@ class MatrixHelper:
 
             time.sleep(0.05)
             
-    def display_final_destination(self, train:Train, pos, upper=True): #Funktion um den Endpunkt anzuzeigen
+    def display_final_destination(self, train:Train, pos, color, upper=True): #Funktion um den Endpunkt anzuzeigen
         margin = 0 if upper else 16
-        graphics.DrawText(self.canvas, self.font_normal, pos, 8+margin, self.color_font, train.get_final_destination())  # Verwende self.message
+        graphics.DrawText(self.canvas, self.font_normal, pos, 8+margin, color, train.get_final_destination())  # Verwende self.message
         # Zeichne schwarzes Rechteck oben links
         for x in range(17):
             for y in range(14):
@@ -192,7 +193,6 @@ class MatrixHelper:
         while True:
             try:
                 station = Station("Rommelshausen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
-                station = []
                 train_list = station.get_sorted_departure_list(num_hours=5)
                 
             except:
