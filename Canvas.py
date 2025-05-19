@@ -127,6 +127,7 @@ class MatrixHelper:
                 if pos_down < -text_width_down + 20:
                     pos_down = 64
                 time.sleep(0.05)
+                print("lsdkjf")
             
     def display_final_destination(self, train:Train, pos, color, upper=True): #Funktion um den Endpunkt anzuzeigen
         margin = 0 if upper else 16
