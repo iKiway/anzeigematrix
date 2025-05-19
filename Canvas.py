@@ -256,7 +256,7 @@ class MatrixHelper:
     def setup_display(self):
         while True:
             try:
-                station = Station("Rommelshausen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
+                station = Station("Waiblingen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
                 train_list = station.get_sorted_departure_list(time_flag=int(datetime.datetime.now().strftime("%y%m%d%H%M")),num_hours=5)
                 
             except:
