@@ -242,6 +242,8 @@ if __name__ == "__main__":
     options.chain_length = 1
     options.parallel = 2
     options.gpio_slowdown = 4
+    options.pwm_bits = 6
+    options.brightness = 100
     
     # options.hardware_mapping = 'adafruit-hat'  # Oder 'adafruit-hat-pwm'
 
