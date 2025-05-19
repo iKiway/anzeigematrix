@@ -240,7 +240,7 @@ if __name__ == "__main__":
     options.rows = 64
     options.cols = 64
     options.chain_length = 1
-    options.parallel = 2
+    options.parallel = 1
     options.gpio_slowdown = 4
     options.pwm_bits = 6
     options.brightness = 100
