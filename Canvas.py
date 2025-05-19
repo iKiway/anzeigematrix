@@ -38,7 +38,7 @@ class MatrixHelper:
         graphics.DrawLine(self.canvas, 63, 0, 63, 31, self.graphics_accent_color)  # Right border
         graphics.DrawLine(self.canvas, 18, 0, 18, 31, self.graphics_accent_color) 
 
-    def content(self):
+    def content_old(self):
         self.thread_run = True
         pos_up = 64
         text_width_up = graphics.DrawText(self.canvas, self.font_normal, pos_up, 10, self.color_font, self.train_list[0].get_final_destination())
@@ -82,6 +82,56 @@ class MatrixHelper:
                 pos_down = 64
 
             time.sleep(0.05)
+            
+    def content(self):
+        self.thread_run = True
+        while self.thread_run:  # Überprüfe den Anzeigemodus
+            self.canvas.Clear()
+            train_list = self.train_list
+            pos_up = 64
+            pos_down = 64
+            destination_down = ""
+            destination_up = train_list[0].get_final_destination()
+            text_width_up = graphics.DrawText(self.canvas, self.font_normal, pos_up, 10, self.color_font, destination_up)
+            
+            pos_up = 20 if text_width_up < 43 else 64
+            
+            if len(self.train_list) > 1:
+                destination_down = train_list[1].get_final_destination()
+                text_width_down = graphics.DrawText(self.canvas, self.font_normal, pos_down, 26, self.color_font, destination_down) #Position ist 26
+                if text_width_down <= 43:
+                    pos_down = 20
+            else:
+                text_width_down = 0
+                
+            self.display_departure(train_list[0], upper=True)
+            self.display_icon(train_list[0], upper=True)
+            if len(train_list) > 1:
+                self.display_departure(train_list[1], upper=False)
+                self.display_icon(train_list[1], upper=False)
+            self.background()
+            x_min = 17
+            clip_width = 63 - x_min
+            clipped_canvas = canvas.SubCanvas(x_min, 0, clip_width, canvas.height)
+            while train_list == self.train_list:
+                clipped_canvas.Clear()
+                graphics.DrawText(clipped_canvas, self.font_normal, pos_up, 8, self.color_font, destination_up)  # Verwende self.message
+                if len(train_list) > 1:
+                    graphics.DrawText(clipped_canvas, self.font_normal, pos_down, 24, self.color_font, destination_down)  # Verwende self.message
+                self.matrix.SwapOnVSync(self.canvas)
+                # self.display_final_destination_new(destination_up, pos_up, graphics.Color(0,0,0), upper=True)
+                # if len(train_list) > 1:
+                #     self.display_final_destination_new(destination_up, pos_down, graphics.Color(0,0,0), upper=False)
+                if text_width_up > 43:
+                    pos_up -= 1
+                if text_width_down > 43:
+                    pos_down -= 1
+                if pos_up < -text_width_up + 20:
+                    pos_up = 64
+                if pos_down < -text_width_down + 20:
+                    pos_down = 64
+                time.sleep(0.05)
+            
             
     def display_final_destination(self, train:Train, pos, color, upper=True): #Funktion um den Endpunkt anzuzeigen
         margin = 0 if upper else 16
