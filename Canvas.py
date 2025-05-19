@@ -237,10 +237,10 @@ class MatrixHelper:
 if __name__ == "__main__":
     # Matrix initialisieren (ersetze durch deine tatsächlichen Optionen)
     options = RGBMatrixOptions()
-    options.rows = 32
+    options.rows = 64
     options.cols = 64
     options.chain_length = 1
-    options.parallel = 1
+    options.parallel = 2
     options.gpio_slowdown = 4
     
     # options.hardware_mapping = 'adafruit-hat'  # Oder 'adafruit-hat-pwm'
