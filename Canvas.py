@@ -11,7 +11,7 @@ from db_api.Train import Train
 
 
 class MatrixHelper:
-    def __init__(self, matrix, canvas, graphics_accent_color):
+    def __init__(self, matrix, canvas, graphics_accent_color, station="Berlin hbf"):
         self.matrix = matrix
         self.canvas = canvas
         self.graphics_accent_color = graphics_accent_color
