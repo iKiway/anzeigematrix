@@ -152,7 +152,7 @@ class MatrixHelper:
                 break
 
             # Nur zeichnen, wenn (teilweise) sichtbar
-            graphics.DrawText(canvas, self.font_normal, pos_x, margin+8, color, char)
+            graphics.DrawText(self.canvas, self.font_normal, pos_x, margin+8, color, char)
             pos_x += char_width
     
     def display_departure(self, train:Train, upper=True): #Funktion um den Abfahrtsort anzuzeigen
