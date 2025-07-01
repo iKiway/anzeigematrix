@@ -15,6 +15,7 @@ class MatrixHelper:
         self.matrix = matrix
         self.canvas = canvas
         self.graphics_accent_color = graphics_accent_color
+        self.station = station  # Speichere den Namen der Station
         self.display_mode = "content"  # Startmodus: Laufschrift
         self.message = "Hello, test test test" #Speichere die Nachricht hier
         self.thread = None #Speichere den Thread
@@ -256,7 +257,7 @@ class MatrixHelper:
     def setup_display(self):
         while True:
             try:
-                station = Station("Waiblingen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
+                station = Station(self.station,"529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
                 train_list = station.get_sorted_departure_list(time_flag=int(datetime.datetime.now().strftime("%y%m%d%H%M")),num_hours=5)
                 
             except:
