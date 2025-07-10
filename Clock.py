@@ -9,6 +9,7 @@ class Clock(App):
         # Hier kannst du den Hintergrund für die Uhr setzen
         self.canvas.Clear()
         self.canvas.SetPixel(0, 0, self.graphics_accent_color.red, self.graphics_accent_color.green, self.graphics_accent_color.blue)
+        self.matrix.SwapOnVSync(self.canvas)
         
     def start_display(self):
         self.background()
