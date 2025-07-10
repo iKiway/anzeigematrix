@@ -13,8 +13,7 @@ from App import App
 
 class DBAnzeige(App):
     def __init__(self, matrix, canvas, graphics_accent_color, station="Berlin hbf"):
-        self.matrix = matrix
-        self.canvas = canvas
+        super().__init__(matrix, canvas)
         self.graphics_accent_color = graphics_accent_color
         self.station = station  # Speichere den Namen der Station
         self.display_mode = "content"  # Startmodus: Laufschrift
@@ -290,6 +289,9 @@ class DBAnzeige(App):
     def stop_display(self):
         if self.thread:
             self.thread.join() #Warte bis der Thread beendet ist
+        self.canvas.Clear()  # Leere die Canvas
+        self.matrix.SwapOnVSync(self.canvas)  # Aktualisiere die Matrix
+        
 
 # class MatrixNoWifi(MatrixHelper): #Entferne die Klasse MatrixNoWifi
 #     def __init__(self, matrix, canvas, graphics_accent_color):
