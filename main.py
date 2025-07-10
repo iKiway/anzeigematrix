@@ -56,6 +56,7 @@ def load_and_switch_app():
             if helper:
                 print(f"Stopping current app: {app_value_old}")
                 helper.stop_display()
+                print("Stopped current app")
                 helper = None
             
             # Starte die neue App
