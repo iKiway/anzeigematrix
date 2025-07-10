@@ -4,6 +4,8 @@ from App import App
 from DBAnzeige import DBAnzeige
 from Clock import Clock
 import json
+import time
+import os
 
 # Matrix initialisieren (ersetze durch deine tatsächlichen Optionen)
 options = RGBMatrixOptions()
@@ -24,31 +26,75 @@ canvas = matrix.CreateFrameCanvas()
 graphics_accent_color = graphics.Color(169, 169, 169)  # Weiß
 
 app_value_old = None
-helper: App
+helper = None
+last_modified_time = 0
+config_file_path = "display_config.json"
 
-# JSON-Datei laden und Wert von "app" überprüfen
-with open("display_config.json", "r") as f:
-    config = json.load(f)
+def load_and_switch_app():
+    global app_value_old, helper, last_modified_time
+    
+    try:
+        # Überprüfe, ob die Datei existiert
+        if not os.path.exists(config_file_path):
+            print(f"Config file {config_file_path} not found")
+            return
+        
+        # Überprüfe die letzte Änderungszeit der Datei
+        current_modified_time = os.path.getmtime(config_file_path)
+        if current_modified_time <= last_modified_time:
+            return  # Datei wurde nicht geändert
+        
+        last_modified_time = current_modified_time
+        
+        # JSON-Datei laden
+        with open(config_file_path, "r") as f:
+            config = json.load(f)
+        
+        app_value = config.get("current_app")
+        if app_value != app_value_old:
+            # Stoppe die aktuelle App
+            if helper:
+                helper.stop_display()
+                helper = None
+            
+            # Starte die neue App
+            if app_value == "clock":
+                helper = Clock(matrix, canvas, graphics_accent_color)
+                print("Clock app selected")
+            elif app_value == "db_fahrplan":
+                helper = DBAnzeige(matrix, canvas, graphics_accent_color)
+                print("DB Fahrplan app selected")
+            elif app_value == "dashboard":
+                helper = App(matrix, canvas)
+                print("Dashboard app selected")
+            else:
+                helper = None
+                print("Unknown app selected")
+            
+            if helper:
+                helper.start_display()
+                print(f"Started app: {app_value}")
+            
+            app_value_old = app_value
+    
+    except Exception as e:
+        print(f"Error loading config: {e}")
 
-app_value = config.get("current_app")
-if app_value != app_value_old:
-    locals().get('helper', None) and helper.stop_display()
-    if app_value == "clock":
-        helper = Clock(matrix, canvas, graphics_accent_color)
-        print("Clock app selected")
-    elif app_value == "db_fahrplan":
-        helper = DBAnzeige(matrix, canvas, graphics_accent_color)
-        print("DB Fahrplan app selected")
-    elif app_value == "dashboard":
-        helper = App(matrix, canvas)
-        print("Dashboard app selected")
-    else:
-        helper = None
-        print("Unknown app selected")
+# Hauptschleife
+try:
+    print("Starting display matrix monitor...")
+    print("Press Ctrl+C to stop")
+    
+    while True:
+        load_and_switch_app()
+        time.sleep(1)  # Überprüfe jede Sekunde
+        
+except KeyboardInterrupt:
+    print("\nStopping display matrix monitor...")
     if helper:
-        helper.start_display()
-        print(app_value)
-    app_value_old = app_value
-# no_wifi_display = MatrixNoWifi(matrix, canvas, graphics_accent_color) #Entfernt
-
-# helper.start_display() #Starte die Anzeige
+        helper.stop_display()
+    print("Goodbye!")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+    if helper:
+        helper.stop_display()
