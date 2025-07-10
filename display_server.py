@@ -222,7 +222,7 @@ def set_current_app():
     app_settings = data.get('settings', {})
     
     # Gültige Apps erweitert
-    valid_apps = ['dashboard', 'weather', 'calendar', 'db_fahrplan', 'news', 'slideshow', 'menu']
+    valid_apps = ['dashboard', 'db_fahrplan', 'clock']
     
     if app_id not in valid_apps:
         return jsonify({
