@@ -287,7 +287,11 @@ class DBAnzeige(App):
                 self.display_no_wifi()
                 print("No wifi available")
                 
-            time.sleep(60)  # Warte 5 Sekunden, bevor du die Liste aktualisierst
+            # Warte 60 Sekunden, aber überprüfe alle 1 Sekunde, ob gestoppt werden soll
+            for _ in range(60):
+                if not self.setup_thread_run:
+                    break
+                time.sleep(1)
         
     def stop_display(self):
         # Stoppe alle Threads
