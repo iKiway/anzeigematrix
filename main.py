@@ -27,7 +27,7 @@ app_value_old = None
 helper: App
 
 # JSON-Datei laden und Wert von "app" überprüfen
-with open("test.json", "r") as f:
+with open("display_config.json", "r") as f:
     config = json.load(f)
 
 app_value = config.get("current_app")
