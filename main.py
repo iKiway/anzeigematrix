@@ -25,7 +25,7 @@ matrix = RGBMatrix(options=options)
 canvas = matrix.CreateFrameCanvas()
 graphics_accent_color = graphics.Color(169, 169, 169)  # Weiß
 
-app_value_old = None
+config_value_old = None
 helper = None
 last_modified_time = 0
 config_file_path = "display_config.json"
@@ -51,7 +51,7 @@ def load_and_switch_app():
             config = json.load(f)
         
         app_value = config.get("current_app")
-        if app_value != app_value_old:
+        if config != config_value_old:
             # Stoppe die aktuelle App
             if helper:
                 print(f"Stopping current app: {app_value_old}")
@@ -76,9 +76,9 @@ def load_and_switch_app():
             if helper:
                 helper.start_display()
                 print(f"Started app: {app_value}")
-            
-            app_value_old = app_value
-    
+
+            config_value_old = config
+
     except Exception as e:
         print(f"Error loading config: {e}")
 
