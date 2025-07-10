@@ -1,4 +1,3 @@
-from Canvas import MatrixHelper
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 from App import App
 from DBAnzeige import DBAnzeige
