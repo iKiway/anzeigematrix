@@ -35,12 +35,16 @@ if app_value != app_value_old:
     locals().get('helper', None) and helper.stop_display()
     if app_value == "clock":
         helper = Clock(matrix, canvas, graphics_accent_color)
+        print("Clock app selected")
     elif app_value == "db_fahrplan":
         helper = DBAnzeige(matrix, canvas, graphics_accent_color)
+        print("DB Fahrplan app selected")
     elif app_value == "dashboard":
         helper = App(matrix, canvas)
+        print("Dashboard app selected")
     else:
         helper = None
+        print("Unknown app selected")
     if helper:
         helper.start_display()
         print(app_value)
