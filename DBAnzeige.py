@@ -299,13 +299,13 @@ class DBAnzeige(App):
         self.thread_run = False
         
         # Warte bis der Setup-Thread beendet ist
+        if self.thread and self.thread.is_alive():
+            self.thread.join()
+        print("Content thread stopped")
         if self.setup_thread and self.setup_thread.is_alive():
             self.setup_thread.join()
         print("Setup thread stopped")
         # Warte bis der Content-Thread beendet ist
-        if self.thread and self.thread.is_alive():
-            self.thread.join()
-        print("Content thread stopped")
         # Leere die Canvas und zeige sie an
         self.canvas.Clear()
         self.matrix.SwapOnVSync(self.canvas)
