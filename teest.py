@@ -1,11 +1,12 @@
 from db_api.Station import Station
-import datetime
+from datetime import datetime
 
 try:
-    station = Station("Rommelshausen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
+    station = Station("Berlin Hbf","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
 except:
     station = None
-train_list = station.get_sorted_departure_list(num_hours=10)
+
+train_list = station.get_sorted_departure_list(num_hours=2)
 
 for train in train_list:
     train.print_train()
@@ -16,3 +17,6 @@ for train in train_list:
     print(train_list[0:10])
     print(len(train_list))
     print(train.get_delay())
+    
+print(station.get_train_data())
+print(station.send_request_planned_many(date=datetime.now().strftime("%y%m%d"), hour=datetime.now().strftime("%H"), num_hours = 1))

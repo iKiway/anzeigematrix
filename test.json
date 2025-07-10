@@ -1,0 +1,16 @@
+{
+  "display_id": "raspberry_display_001",
+  "display_name": "Raspberry Pi Display",
+  "location": "Lobby",
+  "current_app": "news",
+  "app_settings": {
+    "sources": [
+      "bbc",
+      "cnn",
+      "reuters"
+    ],
+    "refresh_interval": 600
+  },
+  "startup_time": "2025-07-08T19:16:58.786394",
+  "last_updated": "2025-07-08T19:54:19.502019"
+}

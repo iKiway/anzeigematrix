@@ -1,9 +1,5 @@
 from Canvas import MatrixHelper
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
-from App import App
-from DBAnzeige import DBAnzeige
-from Clock import Clock
-import json
 
 # Matrix initialisieren (ersetze durch deine tatsächlichen Optionen)
 options = RGBMatrixOptions()
@@ -23,21 +19,7 @@ matrix = RGBMatrix(options=options)
 canvas = matrix.CreateFrameCanvas()
 graphics_accent_color = graphics.Color(169, 169, 169)  # Weiß
 
-
-# JSON-Datei laden und Wert von "app" überprüfen
-with open("test.json", "r") as f:
-    config = json.load(f)
-
-app_value = config.get("current_app")  # Standardwert "db", falls nicht vorhanden
-
-if app_value == "clock":
-    helper = Clock(matrix, canvas, graphics_accent_color)
-    print(app_value)
-elif app_value == "db_fahrplan":
-    helper = DBAnzeige(matrix, canvas, graphics_accent_color)
-    print(app_value)
-elif app_value == "dashboard":
-    helper = App(matrix, canvas)
+helper = MatrixHelper(matrix, canvas, graphics_accent_color) #Erstelle ein Objekt von MatrixHelper
 # no_wifi_display = MatrixNoWifi(matrix, canvas, graphics_accent_color) #Entfernt
 
-# helper.start_display() #Starte die Anzeige
+helper.start_display() #Starte die Anzeige

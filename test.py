@@ -1,14 +1,13 @@
-from db_api.Station import Station
-import datetime
+import json
 
 
-station = Station("Rommelshausen","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
-a = station.get_sorted_departure_list()
+with open("test.json", "r") as f:
+    config = json.load(f)
 
-b = station.get_sorted_departure_list()
-b = a
+app_value = config.get("current_app")  # Standardwert "db", falls nicht vorhanden
 
-if a == b:
-    print("equal")
+if app_value == "clock":
+
+    print(app_value)
 else:
-    print("not equal")
+    print(app_value)
