@@ -15,3 +15,5 @@ if app_value == "clock":
 else:
     locals().get('helper', None) and helper.stop_display()  # Stoppe die vorherige Anzeige, falls vorhanden
     print(app_value)
+    
+print(config)
