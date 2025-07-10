@@ -4,19 +4,7 @@
 
 echo "Setting up Anzeigematrix..."
 
-# import necessary functions
-if ! command -v python3 &> /dev/null; then
-    echo "Python3 is not installed. Please install Python3 and try again."
-    exit 1
-fi
-if ! command -v pip3 &> /dev/null; then
-    echo "pip3 is not installed. Please install pip3 and try again."
-    exit 1
-fi
-if ! command -v git &> /dev/null; then
-    echo "Git is not installed. Please install Git and try again."
-    exit 1
-fi
+
 
 # install pip
 sudo apt update && sudo apt upgrade -y
