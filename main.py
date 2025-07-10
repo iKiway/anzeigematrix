@@ -62,7 +62,7 @@ def load_and_switch_app():
                 helper = Clock(matrix, canvas, graphics_accent_color)
                 print("Clock app selected")
             elif app_value == "db_fahrplan":
-                helper = DBAnzeige(matrix, canvas, graphics_accent_color)
+                helper = DBAnzeige(matrix, canvas, graphics_accent_color, config["app_settings"].get("station", "Berlin hbf"))
                 print("DB Fahrplan app selected")
             elif app_value == "dashboard":
                 helper = App(matrix, canvas)
