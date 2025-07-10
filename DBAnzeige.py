@@ -20,6 +20,8 @@ class DBAnzeige(App):
         self.message = "Hello, test test test" #Speichere die Nachricht hier
         self.thread = None #Speichere den Thread
         self.thread_run = False
+        self.setup_thread = None #Speichere den Setup-Thread
+        self.setup_thread_run = False
         self.font_normal = graphics.Font()
         self.font_small = graphics.Font()
         self.font_normal.LoadFont("5x7.bdf")  # Lade die Schriftart
@@ -242,8 +244,8 @@ class DBAnzeige(App):
     #         raise ValueError("Invalid display mode.  Must be 'content' or 'no_wifi'.")
 
     def start_display(self): #Starte die Anzeige
-        thread = threading.Thread(target=self.setup_display)
-        thread.start()
+        self.setup_thread = threading.Thread(target=self.setup_display)
+        self.setup_thread.start()
         
     # def start_display(self): #Starte die Anzeige
     #     station = Station("Winnenden","529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
@@ -255,7 +257,8 @@ class DBAnzeige(App):
     #         self.display_no_wifi()
             
     def setup_display(self):
-        while True:
+        self.setup_thread_run = True
+        while self.setup_thread_run:
             try:
                 station = Station(self.station,"529fc99d86062cff082818f1820c4900","ef252166427b5094f093b9e5f331508c")
                 train_list = station.get_sorted_departure_list(time_flag=int(datetime.datetime.now().strftime("%y%m%d%H%M")),num_hours=5)
@@ -287,10 +290,25 @@ class DBAnzeige(App):
             time.sleep(60)  # Warte 5 Sekunden, bevor du die Liste aktualisierst
         
     def stop_display(self):
-        if self.thread:
-            self.thread.join() #Warte bis der Thread beendet ist
-        self.canvas.Clear()  # Leere die Canvas
-        self.matrix.SwapOnVSync(self.canvas)  # Aktualisiere die Matrix
+        # Stoppe alle Threads
+        self.setup_thread_run = False
+        self.thread_run = False
+        
+        # Warte bis der Setup-Thread beendet ist
+        if self.setup_thread and self.setup_thread.is_alive():
+            self.setup_thread.join()
+        
+        # Warte bis der Content-Thread beendet ist
+        if self.thread and self.thread.is_alive():
+            self.thread.join()
+        
+        # Leere die Canvas und zeige sie an
+        self.canvas.Clear()
+        self.matrix.SwapOnVSync(self.canvas)
+        
+        # Setze die Threads zurück
+        self.thread = None
+        self.setup_thread = None
         
 
 # class MatrixNoWifi(MatrixHelper): #Entferne die Klasse MatrixNoWifi
@@ -323,7 +341,7 @@ if __name__ == "__main__":
     canvas = matrix.CreateFrameCanvas()
     graphics_accent_color = graphics.Color(169, 169, 169)  # Weiß
 
-    helper = MatrixHelper(matrix, canvas, graphics_accent_color) #Erstelle ein Objekt von MatrixHelper
+    helper = DBAnzeige(matrix, canvas, graphics_accent_color) #Erstelle ein Objekt von DBAnzeige
     # no_wifi_display = MatrixNoWifi(matrix, canvas, graphics_accent_color) #Entfernt
 
     helper.start_display() #Starte die Anzeige
