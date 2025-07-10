@@ -54,7 +54,7 @@ def load_and_switch_app():
         if config != config_old:
             # Stoppe die aktuelle App
             if helper:
-                print(f"Stopping current app: {app_value_old}")
+                print(f"Stopping current app: {config_old.get('current_app', 'unknown')}")
                 helper.stop_display()
                 print("Stopped current app")
                 helper = None
