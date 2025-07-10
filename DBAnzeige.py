@@ -87,7 +87,6 @@ class DBAnzeige(App):
             time.sleep(0.05)
             
     def content(self):
-        self.thread_run = True
         while self.thread_run:  # Überprüfe den Anzeigemodus
             self.canvas.Clear()
             train_list = self.train_list
@@ -113,7 +112,7 @@ class DBAnzeige(App):
                 self.display_departure(train_list[1], upper=False)
                 self.display_icon(train_list[1], upper=False)
             self.background()
-            while train_list == self.train_list:
+            while train_list == self.train_list and self.thread_run:
                 self.display_final_destination_new(destination_up, pos_up, self.color_font, upper=True)
                 if len(train_list) > 1:
                     self.display_final_destination_new(destination_down, pos_down, self.color_font, upper=False)
@@ -277,6 +276,7 @@ class DBAnzeige(App):
                     print("No trains available")
                 else:
                     if self.thread is None or not self.thread.is_alive(): #Wenn der Thread nicht existiert
+                        self.thread_run = True  # Setze das Flag vor dem Start
                         self.thread = threading.Thread(target=self.content)
                         self.thread.start()
                     print("Trains available")
